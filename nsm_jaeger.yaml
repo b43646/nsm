@@ -1,0 +1,14 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: jaeger
+spec:
+  ingressClassName: nginx # use only with k8s version >= 1.18.0
+  rules:
+  - host: jaeger.nsm.example.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: jaeger
+          servicePort: 16686

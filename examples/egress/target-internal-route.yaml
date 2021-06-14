@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: target-internal-route
+  namespace: legacy
+  annotations:
+    nsm.nginx.com/internal-route: "true"
+spec:
+  ingressClassName: nginx # use only with k8s version >= 1.18.0
+  tls:
+  rules:
+  - host: target-v1-0.legacy
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: target-v1-0
+          servicePort: 80

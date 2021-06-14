@@ -1,0 +1,18 @@
+apiVersion: specs.smi.nginx.com/v1alpha1
+kind: RateLimit
+metadata:
+  name: target-service-rate-limit
+  namespace: nsm-demo2
+spec:
+  destination:
+    kind: Service
+    name: target-v2-1
+    namespace: nsm-demo2
+  sources:
+  - kind: Deployment
+    name: gateway
+    namespace: nsm-demo2
+  name: 5rs
+  rate: 5r/s
+  burst: 5
+  delay: nodelay
