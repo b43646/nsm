@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: prometheus
 spec:
-  ingressClassName: nginx # use only with k8s version >= 1.18.0
+#  ingressClassName: nginx # use only with k8s version >= 1.18.0
   rules:
   - host: prometheus.nsm.example.com
     http:
