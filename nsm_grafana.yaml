@@ -9,7 +9,7 @@ spec:
 #  ingressClassName: nginx # use only with k8s version >= 1.18.0
   tls:
   rules:
-  - host: grafana.nsm.example.com
+  - host: grafana.apps.loren.poc
     http:
       paths:
       - path: /

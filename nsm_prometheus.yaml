@@ -9,7 +9,7 @@ spec:
 #  ingressClassName: nginx # use only with k8s version >= 1.18.0
   tls:
   rules:
-  - host: prometheus.nsm.example.com
+  - host: prometheus.apps.loren.poc
     http:
       paths:
       - path: /

@@ -2,13 +2,17 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: gateway
+  annotations:
+    nsm.nginx.com/internal-route: "true"
 spec:
-  ingressClassName: nginx # use only with k8s version >= 1.18.0
+#  ingressClassName: nginx # use only with k8s version >= 1.18.0
+  tls:
   rules:
-  - host: gateway.demo.example.com
+  - host: gateway.apps.loren.poc
     http:
       paths:
       - path: /
         backend:
           serviceName: gateway-svc
           servicePort: 80
+

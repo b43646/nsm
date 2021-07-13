@@ -21,7 +21,7 @@ spec:
     spec:
       serviceAccountName: nginx-ingress
       containers:
-      - image: customer-registry:5000/nsm/nginx-plus-ingress:1.11.2
+      - image: reg.loren.poc:5000/nsm/nginx-plus-ingress:1.11.2
         imagePullPolicy: Always
         name: nginx-plus-ingress
         ports:

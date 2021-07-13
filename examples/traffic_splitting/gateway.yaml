@@ -29,7 +29,7 @@ spec:
         app: gateway
     spec:
       containers:
-        - image: nginx
+        - image: reg.loren.poc:5000/demo/nginx:latest
           imagePullPolicy: IfNotPresent
           name: gateway
           ports:

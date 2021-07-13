@@ -56,7 +56,7 @@ spec:
       serviceAccountName: bookinfo-details
       containers:
       - name: details
-        image: okd4-registry.lab:5000/istio/examples-bookinfo-details-v1:1.15.0
+        image: reg.loren.poc:5000/demo/examples-bookinfo-details-v1:1.15.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
@@ -105,7 +105,7 @@ spec:
       serviceAccountName: bookinfo-ratings
       containers:
       - name: ratings
-        image: okd4-registry.lab:5000/istio/examples-bookinfo-ratings-v1:1.15.0
+        image: reg.loren.poc:5000/demo/examples-bookinfo-ratings-v1:1.15.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
@@ -154,7 +154,7 @@ spec:
       serviceAccountName: bookinfo-reviews
       containers:
       - name: reviews
-        image: okd4-registry.lab:5000/istio/examples-bookinfo-reviews-v1:1.15.0
+        image: reg.loren.poc:5000/demo/examples-bookinfo-reviews-v1:1.15.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
@@ -181,7 +181,7 @@ spec:
       serviceAccountName: bookinfo-reviews
       containers:
       - name: reviews
-        image: okd4-registry.lab:5000/istio/examples-bookinfo-reviews-v2:1.15.0
+        image: reg.loren.poc:5000/demo/examples-bookinfo-reviews-v2:1.15.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
@@ -208,7 +208,7 @@ spec:
       serviceAccountName: bookinfo-reviews
       containers:
       - name: reviews
-        image: okd4-registry.lab:5000/istio/examples-bookinfo-reviews-v3:1.15.0
+        image: reg.loren.poc:5000/demo/examples-bookinfo-reviews-v3:1.15.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
@@ -257,7 +257,7 @@ spec:
       serviceAccountName: bookinfo-productpage
       containers:
       - name: productpage
-        image: okd4-registry.lab:5000/istio/examples-bookinfo-productpage-v1:1.15.0
+        image: reg.loren.poc:5000/demo/examples-bookinfo-productpage-v1:1.15.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080

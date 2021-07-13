@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: target-v1-0
-        image: "nginx"
+        image: "reg.loren.poc:5000/demo/nginx:latest"
         ports:
         - containerPort: 80
           name: http

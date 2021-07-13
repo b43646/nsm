@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: egress-driver
-        image: curlimages/curl:7.72.0
+        image: reg.loren.poc:5000/demo/curl:7.72.0
         imagePullPolicy: IfNotPresent
         command: [ "/scripts/egress-driver.sh" ]
         env:

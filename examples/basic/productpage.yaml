@@ -8,7 +8,7 @@ spec:
 #  ingressClassName: nginx # use only with k8s version >= 1.18.0
   tls:
   rules:
-  - host: productpage.demo.example.com
+  - host: productpage.apps.loren.poc
     http:
       paths:
       - path: /
