@@ -25,14 +25,14 @@ do
   cd $pos/nplus
   ./nplus-ingress.sh
 
-  # waiting for nplus ready
+  # waiting for nplus(2 instances) ready
   int=1
 
   while(( $int<=1 ))
   do
     sleep 5;
     num=`kubectl -n nginx-ingress get pods | grep 1/1 | wc -l`;
-    if [ $num == 1  ]
+    if [ $num == 2  ]
     then
       let "int++"
     fi
