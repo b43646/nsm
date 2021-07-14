@@ -7,7 +7,7 @@ nsm压力测试介绍
 压测脚本 stress_test.sh
 压测日志 stress_test.log
 
-默认流量控制策略v2.0权重10，v1.0权重10.
+默认流量控制策略v2.0权重90，v1.0权重10.
 
 ```
 [root@km01 nsm]# cat stress_test.log |grep " v2.0" | wc -l
