@@ -1,0 +1,1158 @@
+------------cluster information----------------------
+NAME              STATUS   ROLES    AGE    VERSION   INTERNAL-IP     EXTERNAL-IP   OS-IMAGE                KERNEL-VERSION               CONTAINER-RUNTIME
+km01.loren.test   Ready    master   147m   v1.16.3   192.168.40.20   <none>        CentOS Linux 7 (Core)   5.13.8-1.el7.elrepo.x86_64   docker://18.9.7
+kn01.loren.test   Ready    <none>   140m   v1.16.3   192.168.40.21   <none>        CentOS Linux 7 (Core)   5.13.8-1.el7.elrepo.x86_64   docker://18.9.7
+kn02.loren.test   Ready    <none>   130m   v1.16.3   192.168.40.22   <none>        CentOS Linux 7 (Core)   5.13.8-1.el7.elrepo.x86_64   docker://18.9.7
+[33m    /¯¯\
+[36m /¯¯[33m\__/[32m¯¯\[0m    Cilium:         [32mOK[0m
+[36m \__[31m/¯¯\[32m__/[0m    Operator:       [32mOK[0m
+[32m /¯¯[31m\__/[35m¯¯\[0m    Hubble:         [36mdisabled[0m
+[32m \__[34m/¯¯\[35m__/[0m    ClusterMesh:    [36mdisabled[0m
+[34m    \__/
+[0m
+DaemonSet         cilium             Desired: 3, Ready: [32m3/3[0m, Available: [32m3/3[0m
+Deployment        cilium-operator    Desired: 2, Ready: [32m2/2[0m, Available: [32m2/2[0m
+Containers:       cilium             Running: [32m3[0m
+                  cilium-operator    Running: [32m2[0m
+Image versions    cilium             quay.io/cilium/cilium:v1.10.3@sha256:8419531c5d3677158802882bdfe2297915c43f2ebe3649551aaac22de9f6d565: 3
+                  cilium-operator    quay.io/cilium/operator-generic:v1.10.3@sha256:337ebf27eae4fbad51cc4baf9110b3ec6753320dd33075bc136e2a1865be5eb5: 2
+
+-------- nginx-meshctl deploy --registry-server reg.loren.poc:5000/nsm --image-tag 1.0.1 -------------
+Deploying NGINX Service Mesh Control Plane in namespace "nginx-mesh"...
+Created namespace "nginx-mesh".
+Created SpiffeID CRD.
+Warning: Deploying without persistent storage, not suitable for production environments.
+         For production environments ensure a default StorageClass is set.
+Waiting for SPIRE to be running...done.
+Deployed Spire.
+Waiting for NATS to be running...done.
+Deployed NATS server.
+Created traffic policy CRDs.
+Deployed Mesh API.
+Deployed Metrics API Server.
+Deployed Prometheus Server nginx-mesh/prometheus.
+Deployed Grafana nginx-mesh/grafana.
+Deployed tracing server nginx-mesh/jaeger.
+All resources created. Testing the connection to the Service Mesh API Server...
+Connection to NGINX Service Mesh API Server failed.
+	Check the logs of the nginx-mesh-api container in namespace nginx-mesh for more details.
+namespace/nginx-ingress created
+serviceaccount/nginx-ingress created
+clusterrole.rbac.authorization.k8s.io/nginx-ingress created
+clusterrolebinding.rbac.authorization.k8s.io/nginx-ingress created
+clusterrole.rbac.authorization.k8s.io/nginx-ingress-app-protect created
+clusterrolebinding.rbac.authorization.k8s.io/nginx-ingress-app-protect created
+secret/default-server-secret created
+configmap/nginx-config created
+customresourcedefinition.apiextensions.k8s.io/virtualservers.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/virtualserverroutes.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/transportservers.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/policies.k8s.nginx.org created
+deployment.apps/nginx-ingress created
+ingress.networking.k8s.io/grafana created
+ingress.networking.k8s.io/jaeger created
+ingress.networking.k8s.io/prometheus created
+namespace/nsm-demo0 created
+service/target-svc created
+deployment.apps/target-v1-0 created
+configmap/target-v1-0 created
+service/target-v1-0 created
+configmap/gw-nginx-conf created
+deployment.apps/gateway created
+service/gateway-svc created
+ingress.networking.k8s.io/gateway created
+deployment.apps/target-v2-0 created
+configmap/target-v2-0 created
+service/target-v2-0 created
+trafficsplit.split.smi-spec.io/target-ts created
+target v1.0
+target v1.0
+target v2.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v2.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v2.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v2.0
+target v1.0
+target v1.0
+trafficsplit.split.smi-spec.io "target-ts" deleted
+deployment.apps "target-v2-0" deleted
+configmap "target-v2-0" deleted
+service "target-v2-0" deleted
+service "target-svc" deleted
+deployment.apps "target-v1-0" deleted
+configmap "target-v1-0" deleted
+service "target-v1-0" deleted
+configmap "gw-nginx-conf" deleted
+deployment.apps "gateway" deleted
+service "gateway-svc" deleted
+ingress.networking.k8s.io "gateway" deleted
+namespace "nsm-demo0" deleted
+ingress.networking.k8s.io "grafana" deleted
+ingress.networking.k8s.io "jaeger" deleted
+ingress.networking.k8s.io "prometheus" deleted
+Removing NGINX Service Mesh from namespace "nginx-mesh"...
+NGINX Service Mesh removed successfully.
+NOTE: The following resources still contain the sidecar proxy:
+
+  NAMESPACE      RESOURCE
+  nginx-ingress  deployment/nginx-ingress
+
+If your resource supports rolling updates, re-roll using 'kubectl rollout restart <resource>/<name>'. Otherwise, the Pods need to be deleted and re-created.
+deployment.apps "nginx-ingress" deleted
+namespace "nginx-ingress" deleted
+serviceaccount "nginx-ingress" deleted
+clusterrole.rbac.authorization.k8s.io "nginx-ingress" deleted
+clusterrolebinding.rbac.authorization.k8s.io "nginx-ingress" deleted
+clusterrole.rbac.authorization.k8s.io "nginx-ingress-app-protect" deleted
+clusterrolebinding.rbac.authorization.k8s.io "nginx-ingress-app-protect" deleted
+customresourcedefinition.apiextensions.k8s.io "virtualservers.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "virtualserverroutes.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "transportservers.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "policies.k8s.nginx.org" deleted
+-------- nginx-meshctl deploy --registry-server reg.loren.poc:5000/nsm --image-tag 1.0.1 --mtls-mode off -------------
+Deploying NGINX Service Mesh Control Plane in namespace "nginx-mesh"...
+Created namespace "nginx-mesh".
+Created SpiffeID CRD.
+Warning: Deploying without persistent storage, not suitable for production environments.
+         For production environments ensure a default StorageClass is set.
+Waiting for SPIRE to be running...done.
+Deployed Spire.
+Waiting for NATS to be running...done.
+Deployed NATS server.
+Created traffic policy CRDs.
+Deployed Mesh API.
+Deployed Metrics API Server.
+Deployed Prometheus Server nginx-mesh/prometheus.
+Deployed Grafana nginx-mesh/grafana.
+Deployed tracing server nginx-mesh/jaeger.
+All resources created. Testing the connection to the Service Mesh API Server...
+Connected to the NGINX Service Mesh API successfully.
+Verifying that all images were pulled...done.
+NGINX Service Mesh is running.
+namespace/nginx-ingress created
+serviceaccount/nginx-ingress created
+clusterrole.rbac.authorization.k8s.io/nginx-ingress created
+clusterrolebinding.rbac.authorization.k8s.io/nginx-ingress created
+clusterrole.rbac.authorization.k8s.io/nginx-ingress-app-protect created
+clusterrolebinding.rbac.authorization.k8s.io/nginx-ingress-app-protect created
+secret/default-server-secret created
+configmap/nginx-config created
+customresourcedefinition.apiextensions.k8s.io/virtualservers.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/virtualserverroutes.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/transportservers.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/policies.k8s.nginx.org created
+deployment.apps/nginx-ingress created
+ingress.networking.k8s.io/grafana created
+ingress.networking.k8s.io/jaeger created
+ingress.networking.k8s.io/prometheus created
+namespace/nsm-demo1 created
+service/target-svc created
+deployment.apps/target-v1-0 created
+configmap/target-v1-0 created
+service/target-v1-0 created
+configmap/gw-nginx-conf created
+deployment.apps/gateway created
+service/gateway-svc created
+ingress.networking.k8s.io/gateway created
+deployment.apps/target-v2-0 created
+configmap/target-v2-0 created
+service/target-v2-0 created
+trafficsplit.split.smi-spec.io/target-ts created
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v2.0
+target v2.0
+target v2.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v2.0
+target v1.0
+target v1.0
+target v1.0
+target v2.0
+target v1.0
+target v2.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v2.0
+trafficsplit.split.smi-spec.io "target-ts" deleted
+deployment.apps "target-v2-0" deleted
+configmap "target-v2-0" deleted
+service "target-v2-0" deleted
+service "target-svc" deleted
+deployment.apps "target-v1-0" deleted
+configmap "target-v1-0" deleted
+service "target-v1-0" deleted
+configmap "gw-nginx-conf" deleted
+deployment.apps "gateway" deleted
+service "gateway-svc" deleted
+ingress.networking.k8s.io "gateway" deleted
+namespace "nsm-demo1" deleted
+ingress.networking.k8s.io "grafana" deleted
+ingress.networking.k8s.io "jaeger" deleted
+ingress.networking.k8s.io "prometheus" deleted
+Removing NGINX Service Mesh from namespace "nginx-mesh"...
+NGINX Service Mesh removed successfully.
+NOTE: The following resources still contain the sidecar proxy:
+
+  NAMESPACE      RESOURCE
+  nginx-ingress  deployment/nginx-ingress
+
+If your resource supports rolling updates, re-roll using 'kubectl rollout restart <resource>/<name>'. Otherwise, the Pods need to be deleted and re-created.
+deployment.apps "nginx-ingress" deleted
+namespace "nginx-ingress" deleted
+serviceaccount "nginx-ingress" deleted
+clusterrole.rbac.authorization.k8s.io "nginx-ingress" deleted
+clusterrolebinding.rbac.authorization.k8s.io "nginx-ingress" deleted
+clusterrole.rbac.authorization.k8s.io "nginx-ingress-app-protect" deleted
+clusterrolebinding.rbac.authorization.k8s.io "nginx-ingress-app-protect" deleted
+customresourcedefinition.apiextensions.k8s.io "virtualservers.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "virtualserverroutes.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "transportservers.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "policies.k8s.nginx.org" deleted
+-------- nginx-meshctl deploy --registry-server reg.loren.poc:5000/nsm --image-tag 1.0.1 --enabled-namespaces nsm-demo2,nsm-demo3,nsm-demo4 -------------
+Deploying NGINX Service Mesh Control Plane in namespace "nginx-mesh"...
+Created namespace "nginx-mesh".
+Created SpiffeID CRD.
+Warning: Deploying without persistent storage, not suitable for production environments.
+         For production environments ensure a default StorageClass is set.
+Waiting for SPIRE to be running...done.
+Deployed Spire.
+Waiting for NATS to be running...done.
+Deployed NATS server.
+Created traffic policy CRDs.
+Deployed Mesh API.
+Deployed Metrics API Server.
+Deployed Prometheus Server nginx-mesh/prometheus.
+Deployed Grafana nginx-mesh/grafana.
+Deployed tracing server nginx-mesh/jaeger.
+All resources created. Testing the connection to the Service Mesh API Server...
+Connected to the NGINX Service Mesh API successfully.
+Verifying that all images were pulled...done.
+NGINX Service Mesh is running.
+namespace/nginx-ingress created
+serviceaccount/nginx-ingress created
+clusterrole.rbac.authorization.k8s.io/nginx-ingress created
+clusterrolebinding.rbac.authorization.k8s.io/nginx-ingress created
+clusterrole.rbac.authorization.k8s.io/nginx-ingress-app-protect created
+clusterrolebinding.rbac.authorization.k8s.io/nginx-ingress-app-protect created
+secret/default-server-secret created
+configmap/nginx-config created
+customresourcedefinition.apiextensions.k8s.io/virtualservers.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/virtualserverroutes.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/transportservers.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/policies.k8s.nginx.org created
+deployment.apps/nginx-ingress created
+ingress.networking.k8s.io/grafana created
+ingress.networking.k8s.io/jaeger created
+ingress.networking.k8s.io/prometheus created
+namespace/nsm-demo2 created
+service/target-svc created
+deployment.apps/target-v1-0 created
+configmap/target-v1-0 created
+service/target-v1-0 created
+configmap/gw-nginx-conf created
+deployment.apps/gateway created
+service/gateway-svc created
+ingress.networking.k8s.io/gateway created
+deployment.apps/target-v2-0 created
+configmap/target-v2-0 created
+service/target-v2-0 created
+trafficsplit.split.smi-spec.io/target-ts created
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v2.0
+target v1.0
+target v1.0
+target v2.0
+target v1.0
+target v1.0
+trafficsplit.split.smi-spec.io "target-ts" deleted
+deployment.apps "target-v2-0" deleted
+configmap "target-v2-0" deleted
+service "target-v2-0" deleted
+service "target-svc" deleted
+deployment.apps "target-v1-0" deleted
+configmap "target-v1-0" deleted
+service "target-v1-0" deleted
+configmap "gw-nginx-conf" deleted
+deployment.apps "gateway" deleted
+service "gateway-svc" deleted
+ingress.networking.k8s.io "gateway" deleted
+namespace "nsm-demo2" deleted
+ingress.networking.k8s.io "grafana" deleted
+ingress.networking.k8s.io "jaeger" deleted
+ingress.networking.k8s.io "prometheus" deleted
+Removing NGINX Service Mesh from namespace "nginx-mesh"...
+NGINX Service Mesh removed successfully.
+NOTE: The following resources still contain the sidecar proxy:
+
+  NAMESPACE      RESOURCE
+  nginx-ingress  deployment/nginx-ingress
+
+If your resource supports rolling updates, re-roll using 'kubectl rollout restart <resource>/<name>'. Otherwise, the Pods need to be deleted and re-created.
+deployment.apps "nginx-ingress" deleted
+namespace "nginx-ingress" deleted
+serviceaccount "nginx-ingress" deleted
+clusterrole.rbac.authorization.k8s.io "nginx-ingress" deleted
+clusterrolebinding.rbac.authorization.k8s.io "nginx-ingress" deleted
+clusterrole.rbac.authorization.k8s.io "nginx-ingress-app-protect" deleted
+clusterrolebinding.rbac.authorization.k8s.io "nginx-ingress-app-protect" deleted
+customresourcedefinition.apiextensions.k8s.io "virtualservers.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "virtualserverroutes.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "transportservers.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "policies.k8s.nginx.org" deleted
+-------- nginx-meshctl deploy --registry-server reg.loren.poc:5000/nsm --image-tag 1.0.1 --disabled-namespaces legacy -------------
+Deploying NGINX Service Mesh Control Plane in namespace "nginx-mesh"...
+Created namespace "nginx-mesh".
+Created SpiffeID CRD.
+Warning: Deploying without persistent storage, not suitable for production environments.
+         For production environments ensure a default StorageClass is set.
+Waiting for SPIRE to be running...done.
+Deployed Spire.
+Waiting for NATS to be running...done.
+Deployed NATS server.
+Created traffic policy CRDs.
+Deployed Mesh API.
+Deployed Metrics API Server.
+Deployed Prometheus Server nginx-mesh/prometheus.
+Deployed Grafana nginx-mesh/grafana.
+Deployed tracing server nginx-mesh/jaeger.
+All resources created. Testing the connection to the Service Mesh API Server...
+Connected to the NGINX Service Mesh API successfully.
+Verifying that all images were pulled...done.
+NGINX Service Mesh is running.
+namespace/nginx-ingress created
+serviceaccount/nginx-ingress created
+clusterrole.rbac.authorization.k8s.io/nginx-ingress created
+clusterrolebinding.rbac.authorization.k8s.io/nginx-ingress created
+clusterrole.rbac.authorization.k8s.io/nginx-ingress-app-protect created
+clusterrolebinding.rbac.authorization.k8s.io/nginx-ingress-app-protect created
+secret/default-server-secret created
+configmap/nginx-config created
+customresourcedefinition.apiextensions.k8s.io/virtualservers.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/virtualserverroutes.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/transportservers.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/policies.k8s.nginx.org created
+deployment.apps/nginx-ingress created
+ingress.networking.k8s.io/grafana created
+ingress.networking.k8s.io/jaeger created
+ingress.networking.k8s.io/prometheus created
+namespace/nsm-demo3 created
+service/target-svc created
+deployment.apps/target-v1-0 created
+configmap/target-v1-0 created
+service/target-v1-0 created
+configmap/gw-nginx-conf created
+deployment.apps/gateway created
+service/gateway-svc created
+ingress.networking.k8s.io/gateway created
+deployment.apps/target-v2-0 created
+configmap/target-v2-0 created
+service/target-v2-0 created
+trafficsplit.split.smi-spec.io/target-ts created
+target v1.0
+target v2.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v2.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+trafficsplit.split.smi-spec.io "target-ts" deleted
+deployment.apps "target-v2-0" deleted
+configmap "target-v2-0" deleted
+service "target-v2-0" deleted
+service "target-svc" deleted
+deployment.apps "target-v1-0" deleted
+configmap "target-v1-0" deleted
+service "target-v1-0" deleted
+configmap "gw-nginx-conf" deleted
+deployment.apps "gateway" deleted
+service "gateway-svc" deleted
+ingress.networking.k8s.io "gateway" deleted
+namespace "nsm-demo3" deleted
+ingress.networking.k8s.io "grafana" deleted
+ingress.networking.k8s.io "jaeger" deleted
+ingress.networking.k8s.io "prometheus" deleted
+Removing NGINX Service Mesh from namespace "nginx-mesh"...
+NGINX Service Mesh removed successfully.
+NOTE: The following resources still contain the sidecar proxy:
+
+  NAMESPACE      RESOURCE
+  nginx-ingress  deployment/nginx-ingress
+
+If your resource supports rolling updates, re-roll using 'kubectl rollout restart <resource>/<name>'. Otherwise, the Pods need to be deleted and re-created.
+deployment.apps "nginx-ingress" deleted
+namespace "nginx-ingress" deleted
+serviceaccount "nginx-ingress" deleted
+clusterrole.rbac.authorization.k8s.io "nginx-ingress" deleted
+clusterrolebinding.rbac.authorization.k8s.io "nginx-ingress" deleted
+clusterrole.rbac.authorization.k8s.io "nginx-ingress-app-protect" deleted
+clusterrolebinding.rbac.authorization.k8s.io "nginx-ingress-app-protect" deleted
+customresourcedefinition.apiextensions.k8s.io "virtualservers.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "virtualserverroutes.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "transportservers.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "policies.k8s.nginx.org" deleted
+-------- nginx-meshctl deploy --registry-server reg.loren.poc:5000/nsm --image-tag 1.0.1 -------------
+Deploying NGINX Service Mesh Control Plane in namespace "nginx-mesh"...
+Created namespace "nginx-mesh".
+Created SpiffeID CRD.
+Warning: Deploying without persistent storage, not suitable for production environments.
+         For production environments ensure a default StorageClass is set.
+Waiting for SPIRE to be running...done.
+Deployed Spire.
+Waiting for NATS to be running...done.
+Deployed NATS server.
+Created traffic policy CRDs.
+Deployed Mesh API.
+Deployed Metrics API Server.
+Deployed Prometheus Server nginx-mesh/prometheus.
+Deployed Grafana nginx-mesh/grafana.
+Deployed tracing server nginx-mesh/jaeger.
+All resources created. Testing the connection to the Service Mesh API Server...
+Connected to the NGINX Service Mesh API successfully.
+Verifying that all images were pulled...done.
+NGINX Service Mesh is running.
+namespace/nginx-ingress created
+serviceaccount/nginx-ingress created
+clusterrole.rbac.authorization.k8s.io/nginx-ingress created
+clusterrolebinding.rbac.authorization.k8s.io/nginx-ingress created
+clusterrole.rbac.authorization.k8s.io/nginx-ingress-app-protect created
+clusterrolebinding.rbac.authorization.k8s.io/nginx-ingress-app-protect created
+secret/default-server-secret created
+configmap/nginx-config created
+customresourcedefinition.apiextensions.k8s.io/virtualservers.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/virtualserverroutes.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/transportservers.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/policies.k8s.nginx.org created
+deployment.apps/nginx-ingress created
+ingress.networking.k8s.io/grafana created
+ingress.networking.k8s.io/jaeger created
+ingress.networking.k8s.io/prometheus created
+namespace/nsm-demo4 created
+service/target-svc created
+deployment.apps/target-v1-0 created
+configmap/target-v1-0 created
+service/target-v1-0 created
+configmap/gw-nginx-conf created
+deployment.apps/gateway created
+service/gateway-svc created
+ingress.networking.k8s.io/gateway created
+deployment.apps/target-v2-0 created
+configmap/target-v2-0 created
+service/target-v2-0 created
+trafficsplit.split.smi-spec.io/target-ts created
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v2.0
+target v2.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+trafficsplit.split.smi-spec.io "target-ts" deleted
+deployment.apps "target-v2-0" deleted
+configmap "target-v2-0" deleted
+service "target-v2-0" deleted
+service "target-svc" deleted
+deployment.apps "target-v1-0" deleted
+configmap "target-v1-0" deleted
+service "target-v1-0" deleted
+configmap "gw-nginx-conf" deleted
+deployment.apps "gateway" deleted
+service "gateway-svc" deleted
+ingress.networking.k8s.io "gateway" deleted
+namespace "nsm-demo4" deleted
+ingress.networking.k8s.io "grafana" deleted
+ingress.networking.k8s.io "jaeger" deleted
+ingress.networking.k8s.io "prometheus" deleted
+Removing NGINX Service Mesh from namespace "nginx-mesh"...
+NGINX Service Mesh removed successfully.
+NOTE: The following resources still contain the sidecar proxy:
+
+  NAMESPACE      RESOURCE
+  nginx-ingress  deployment/nginx-ingress
+
+If your resource supports rolling updates, re-roll using 'kubectl rollout restart <resource>/<name>'. Otherwise, the Pods need to be deleted and re-created.
+deployment.apps "nginx-ingress" deleted
+namespace "nginx-ingress" deleted
+serviceaccount "nginx-ingress" deleted
+clusterrole.rbac.authorization.k8s.io "nginx-ingress" deleted
+clusterrolebinding.rbac.authorization.k8s.io "nginx-ingress" deleted
+clusterrole.rbac.authorization.k8s.io "nginx-ingress-app-protect" deleted
+clusterrolebinding.rbac.authorization.k8s.io "nginx-ingress-app-protect" deleted
+customresourcedefinition.apiextensions.k8s.io "virtualservers.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "virtualserverroutes.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "transportservers.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "policies.k8s.nginx.org" deleted
+-------- nginx-meshctl deploy --registry-server reg.loren.poc:5000/nsm --image-tag 1.0.1 --enabled-namespaces nsm-demo4,nsm-demo5,nsm-demo6 -------------
+Deploying NGINX Service Mesh Control Plane in namespace "nginx-mesh"...
+Created namespace "nginx-mesh".
+Created SpiffeID CRD.
+Warning: Deploying without persistent storage, not suitable for production environments.
+         For production environments ensure a default StorageClass is set.
+Waiting for SPIRE to be running...done.
+Deployed Spire.
+Waiting for NATS to be running...done.
+Deployed NATS server.
+Created traffic policy CRDs.
+Deployed Mesh API.
+Deployed Metrics API Server.
+Deployed Prometheus Server nginx-mesh/prometheus.
+Deployed Grafana nginx-mesh/grafana.
+Deployed tracing server nginx-mesh/jaeger.
+All resources created. Testing the connection to the Service Mesh API Server...
+Connected to the NGINX Service Mesh API successfully.
+Verifying that all images were pulled...done.
+NGINX Service Mesh is running.
+namespace/nginx-ingress created
+serviceaccount/nginx-ingress created
+clusterrole.rbac.authorization.k8s.io/nginx-ingress created
+clusterrolebinding.rbac.authorization.k8s.io/nginx-ingress created
+clusterrole.rbac.authorization.k8s.io/nginx-ingress-app-protect created
+clusterrolebinding.rbac.authorization.k8s.io/nginx-ingress-app-protect created
+secret/default-server-secret created
+configmap/nginx-config created
+customresourcedefinition.apiextensions.k8s.io/virtualservers.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/virtualserverroutes.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/transportservers.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/policies.k8s.nginx.org created
+deployment.apps/nginx-ingress created
+ingress.networking.k8s.io/grafana created
+ingress.networking.k8s.io/jaeger created
+ingress.networking.k8s.io/prometheus created
+namespace/nsm-demo5 created
+service/target-svc created
+deployment.apps/target-v1-0 created
+configmap/target-v1-0 created
+service/target-v1-0 created
+configmap/gw-nginx-conf created
+deployment.apps/gateway created
+service/gateway-svc created
+ingress.networking.k8s.io/gateway created
+deployment.apps/target-v2-0 created
+configmap/target-v2-0 created
+service/target-v2-0 created
+trafficsplit.split.smi-spec.io/target-ts created
+target v1.0
+target v1.0
+target v1.0
+target v2.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v2.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v2.0
+target v1.0
+target v1.0
+target v2.0
+target v1.0
+target v1.0
+target v1.0
+trafficsplit.split.smi-spec.io "target-ts" deleted
+deployment.apps "target-v2-0" deleted
+configmap "target-v2-0" deleted
+service "target-v2-0" deleted
+service "target-svc" deleted
+deployment.apps "target-v1-0" deleted
+configmap "target-v1-0" deleted
+service "target-v1-0" deleted
+configmap "gw-nginx-conf" deleted
+deployment.apps "gateway" deleted
+service "gateway-svc" deleted
+ingress.networking.k8s.io "gateway" deleted
+namespace "nsm-demo5" deleted
+ingress.networking.k8s.io "grafana" deleted
+ingress.networking.k8s.io "jaeger" deleted
+ingress.networking.k8s.io "prometheus" deleted
+Removing NGINX Service Mesh from namespace "nginx-mesh"...
+NGINX Service Mesh removed successfully.
+NOTE: The following resources still contain the sidecar proxy:
+
+  NAMESPACE      RESOURCE
+  nginx-ingress  deployment/nginx-ingress
+
+If your resource supports rolling updates, re-roll using 'kubectl rollout restart <resource>/<name>'. Otherwise, the Pods need to be deleted and re-created.
+deployment.apps "nginx-ingress" deleted
+namespace "nginx-ingress" deleted
+serviceaccount "nginx-ingress" deleted
+clusterrole.rbac.authorization.k8s.io "nginx-ingress" deleted
+clusterrolebinding.rbac.authorization.k8s.io "nginx-ingress" deleted
+clusterrole.rbac.authorization.k8s.io "nginx-ingress-app-protect" deleted
+clusterrolebinding.rbac.authorization.k8s.io "nginx-ingress-app-protect" deleted
+customresourcedefinition.apiextensions.k8s.io "virtualservers.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "virtualserverroutes.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "transportservers.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "policies.k8s.nginx.org" deleted
+-------- nginx-meshctl deploy --registry-server reg.loren.poc:5000/nsm --image-tag 1.0.1 -------------
+Deploying NGINX Service Mesh Control Plane in namespace "nginx-mesh"...
+Created namespace "nginx-mesh".
+Created SpiffeID CRD.
+Warning: Deploying without persistent storage, not suitable for production environments.
+         For production environments ensure a default StorageClass is set.
+Waiting for SPIRE to be running...done.
+Deployed Spire.
+Waiting for NATS to be running...done.
+Deployed NATS server.
+Created traffic policy CRDs.
+Deployed Mesh API.
+Deployed Metrics API Server.
+Deployed Prometheus Server nginx-mesh/prometheus.
+Deployed Grafana nginx-mesh/grafana.
+Deployed tracing server nginx-mesh/jaeger.
+All resources created. Testing the connection to the Service Mesh API Server...
+Connected to the NGINX Service Mesh API successfully.
+Verifying that all images were pulled...done.
+NGINX Service Mesh is running.
+namespace/nginx-ingress created
+serviceaccount/nginx-ingress created
+clusterrole.rbac.authorization.k8s.io/nginx-ingress created
+clusterrolebinding.rbac.authorization.k8s.io/nginx-ingress created
+clusterrole.rbac.authorization.k8s.io/nginx-ingress-app-protect created
+clusterrolebinding.rbac.authorization.k8s.io/nginx-ingress-app-protect created
+secret/default-server-secret created
+configmap/nginx-config created
+customresourcedefinition.apiextensions.k8s.io/virtualservers.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/virtualserverroutes.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/transportservers.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/policies.k8s.nginx.org created
+deployment.apps/nginx-ingress created
+ingress.networking.k8s.io/grafana created
+ingress.networking.k8s.io/jaeger created
+ingress.networking.k8s.io/prometheus created
+namespace/nsm-demo6 created
+service/target-svc created
+deployment.apps/target-v1-0 created
+configmap/target-v1-0 created
+service/target-v1-0 created
+configmap/gw-nginx-conf created
+deployment.apps/gateway created
+service/gateway-svc created
+ingress.networking.k8s.io/gateway created
+deployment.apps/target-v2-0 created
+configmap/target-v2-0 created
+service/target-v2-0 created
+trafficsplit.split.smi-spec.io/target-ts created
+target v1.0
+target v1.0
+target v2.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v2.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+trafficsplit.split.smi-spec.io "target-ts" deleted
+deployment.apps "target-v2-0" deleted
+configmap "target-v2-0" deleted
+service "target-v2-0" deleted
+service "target-svc" deleted
+deployment.apps "target-v1-0" deleted
+configmap "target-v1-0" deleted
+service "target-v1-0" deleted
+configmap "gw-nginx-conf" deleted
+deployment.apps "gateway" deleted
+service "gateway-svc" deleted
+ingress.networking.k8s.io "gateway" deleted
+namespace "nsm-demo6" deleted
+ingress.networking.k8s.io "grafana" deleted
+ingress.networking.k8s.io "jaeger" deleted
+ingress.networking.k8s.io "prometheus" deleted
+Removing NGINX Service Mesh from namespace "nginx-mesh"...
+NGINX Service Mesh removed successfully.
+NOTE: The following resources still contain the sidecar proxy:
+
+  NAMESPACE      RESOURCE
+  nginx-ingress  deployment/nginx-ingress
+
+If your resource supports rolling updates, re-roll using 'kubectl rollout restart <resource>/<name>'. Otherwise, the Pods need to be deleted and re-created.
+deployment.apps "nginx-ingress" deleted
+namespace "nginx-ingress" deleted
+serviceaccount "nginx-ingress" deleted
+clusterrole.rbac.authorization.k8s.io "nginx-ingress" deleted
+clusterrolebinding.rbac.authorization.k8s.io "nginx-ingress" deleted
+clusterrole.rbac.authorization.k8s.io "nginx-ingress-app-protect" deleted
+clusterrolebinding.rbac.authorization.k8s.io "nginx-ingress-app-protect" deleted
+customresourcedefinition.apiextensions.k8s.io "virtualservers.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "virtualserverroutes.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "transportservers.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "policies.k8s.nginx.org" deleted
+-------- nginx-meshctl deploy --registry-server reg.loren.poc:5000/nsm --image-tag 1.0.1 --mtls-mode off -------------
+Deploying NGINX Service Mesh Control Plane in namespace "nginx-mesh"...
+Created namespace "nginx-mesh".
+Created SpiffeID CRD.
+Warning: Deploying without persistent storage, not suitable for production environments.
+         For production environments ensure a default StorageClass is set.
+Waiting for SPIRE to be running...done.
+Deployed Spire.
+Waiting for NATS to be running...done.
+Deployed NATS server.
+Created traffic policy CRDs.
+Deployed Mesh API.
+Deployed Metrics API Server.
+Deployed Prometheus Server nginx-mesh/prometheus.
+Deployed Grafana nginx-mesh/grafana.
+Deployed tracing server nginx-mesh/jaeger.
+All resources created. Testing the connection to the Service Mesh API Server...
+Connected to the NGINX Service Mesh API successfully.
+Verifying that all images were pulled...done.
+NGINX Service Mesh is running.
+namespace/nginx-ingress created
+serviceaccount/nginx-ingress created
+clusterrole.rbac.authorization.k8s.io/nginx-ingress created
+clusterrolebinding.rbac.authorization.k8s.io/nginx-ingress created
+clusterrole.rbac.authorization.k8s.io/nginx-ingress-app-protect created
+clusterrolebinding.rbac.authorization.k8s.io/nginx-ingress-app-protect created
+secret/default-server-secret created
+configmap/nginx-config created
+customresourcedefinition.apiextensions.k8s.io/virtualservers.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/virtualserverroutes.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/transportservers.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/policies.k8s.nginx.org created
+deployment.apps/nginx-ingress created
+ingress.networking.k8s.io/grafana created
+ingress.networking.k8s.io/jaeger created
+ingress.networking.k8s.io/prometheus created
+namespace/nsm-demo7 created
+service/target-svc created
+deployment.apps/target-v1-0 created
+configmap/target-v1-0 created
+service/target-v1-0 created
+configmap/gw-nginx-conf created
+deployment.apps/gateway created
+service/gateway-svc created
+ingress.networking.k8s.io/gateway created
+deployment.apps/target-v2-0 created
+configmap/target-v2-0 created
+service/target-v2-0 created
+trafficsplit.split.smi-spec.io/target-ts created
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v2.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+trafficsplit.split.smi-spec.io "target-ts" deleted
+deployment.apps "target-v2-0" deleted
+configmap "target-v2-0" deleted
+service "target-v2-0" deleted
+service "target-svc" deleted
+deployment.apps "target-v1-0" deleted
+configmap "target-v1-0" deleted
+service "target-v1-0" deleted
+configmap "gw-nginx-conf" deleted
+deployment.apps "gateway" deleted
+service "gateway-svc" deleted
+ingress.networking.k8s.io "gateway" deleted
+namespace "nsm-demo7" deleted
+ingress.networking.k8s.io "grafana" deleted
+ingress.networking.k8s.io "jaeger" deleted
+ingress.networking.k8s.io "prometheus" deleted
+Removing NGINX Service Mesh from namespace "nginx-mesh"...
+NGINX Service Mesh removed successfully.
+NOTE: The following resources still contain the sidecar proxy:
+
+  NAMESPACE      RESOURCE
+  nginx-ingress  deployment/nginx-ingress
+
+If your resource supports rolling updates, re-roll using 'kubectl rollout restart <resource>/<name>'. Otherwise, the Pods need to be deleted and re-created.
+deployment.apps "nginx-ingress" deleted
+namespace "nginx-ingress" deleted
+serviceaccount "nginx-ingress" deleted
+clusterrole.rbac.authorization.k8s.io "nginx-ingress" deleted
+clusterrolebinding.rbac.authorization.k8s.io "nginx-ingress" deleted
+clusterrole.rbac.authorization.k8s.io "nginx-ingress-app-protect" deleted
+clusterrolebinding.rbac.authorization.k8s.io "nginx-ingress-app-protect" deleted
+customresourcedefinition.apiextensions.k8s.io "virtualservers.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "virtualserverroutes.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "transportservers.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "policies.k8s.nginx.org" deleted
+-------- nginx-meshctl deploy --registry-server reg.loren.poc:5000/nsm --image-tag 1.0.1 --disabled-namespaces legacy -------------
+Deploying NGINX Service Mesh Control Plane in namespace "nginx-mesh"...
+Created namespace "nginx-mesh".
+Created SpiffeID CRD.
+Warning: Deploying without persistent storage, not suitable for production environments.
+         For production environments ensure a default StorageClass is set.
+Waiting for SPIRE to be running...done.
+Deployed Spire.
+Waiting for NATS to be running...done.
+Deployed NATS server.
+Created traffic policy CRDs.
+Deployed Mesh API.
+Deployed Metrics API Server.
+Deployed Prometheus Server nginx-mesh/prometheus.
+Deployed Grafana nginx-mesh/grafana.
+Deployed tracing server nginx-mesh/jaeger.
+All resources created. Testing the connection to the Service Mesh API Server...
+Connected to the NGINX Service Mesh API successfully.
+Verifying that all images were pulled...done.
+NGINX Service Mesh is running.
+namespace/nginx-ingress created
+serviceaccount/nginx-ingress created
+clusterrole.rbac.authorization.k8s.io/nginx-ingress created
+clusterrolebinding.rbac.authorization.k8s.io/nginx-ingress created
+clusterrole.rbac.authorization.k8s.io/nginx-ingress-app-protect created
+clusterrolebinding.rbac.authorization.k8s.io/nginx-ingress-app-protect created
+secret/default-server-secret created
+configmap/nginx-config created
+customresourcedefinition.apiextensions.k8s.io/virtualservers.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/virtualserverroutes.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/transportservers.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/policies.k8s.nginx.org created
+deployment.apps/nginx-ingress created
+ingress.networking.k8s.io/grafana created
+ingress.networking.k8s.io/jaeger created
+ingress.networking.k8s.io/prometheus created
+namespace/nsm-demo8 created
+service/target-svc created
+deployment.apps/target-v1-0 created
+configmap/target-v1-0 created
+service/target-v1-0 created
+configmap/gw-nginx-conf created
+deployment.apps/gateway created
+service/gateway-svc created
+ingress.networking.k8s.io/gateway created
+deployment.apps/target-v2-0 created
+configmap/target-v2-0 created
+service/target-v2-0 created
+trafficsplit.split.smi-spec.io/target-ts created
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v2.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v2.0
+target v1.0
+target v2.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+trafficsplit.split.smi-spec.io "target-ts" deleted
+deployment.apps "target-v2-0" deleted
+configmap "target-v2-0" deleted
+service "target-v2-0" deleted
+service "target-svc" deleted
+deployment.apps "target-v1-0" deleted
+configmap "target-v1-0" deleted
+service "target-v1-0" deleted
+configmap "gw-nginx-conf" deleted
+deployment.apps "gateway" deleted
+service "gateway-svc" deleted
+ingress.networking.k8s.io "gateway" deleted
+namespace "nsm-demo8" deleted
+ingress.networking.k8s.io "grafana" deleted
+ingress.networking.k8s.io "jaeger" deleted
+ingress.networking.k8s.io "prometheus" deleted
+Removing NGINX Service Mesh from namespace "nginx-mesh"...
+NGINX Service Mesh removed successfully.
+NOTE: The following resources still contain the sidecar proxy:
+
+  NAMESPACE      RESOURCE
+  nginx-ingress  deployment/nginx-ingress
+
+If your resource supports rolling updates, re-roll using 'kubectl rollout restart <resource>/<name>'. Otherwise, the Pods need to be deleted and re-created.
+deployment.apps "nginx-ingress" deleted
+namespace "nginx-ingress" deleted
+serviceaccount "nginx-ingress" deleted
+clusterrole.rbac.authorization.k8s.io "nginx-ingress" deleted
+clusterrolebinding.rbac.authorization.k8s.io "nginx-ingress" deleted
+clusterrole.rbac.authorization.k8s.io "nginx-ingress-app-protect" deleted
+clusterrolebinding.rbac.authorization.k8s.io "nginx-ingress-app-protect" deleted
+customresourcedefinition.apiextensions.k8s.io "virtualservers.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "virtualserverroutes.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "transportservers.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "policies.k8s.nginx.org" deleted
+-------- nginx-meshctl deploy --registry-server reg.loren.poc:5000/nsm --image-tag 1.0.1 -------------
+Deploying NGINX Service Mesh Control Plane in namespace "nginx-mesh"...
+Created namespace "nginx-mesh".
+Created SpiffeID CRD.
+Warning: Deploying without persistent storage, not suitable for production environments.
+         For production environments ensure a default StorageClass is set.
+Waiting for SPIRE to be running...done.
+Deployed Spire.
+Waiting for NATS to be running...done.
+Deployed NATS server.
+Created traffic policy CRDs.
+Deployed Mesh API.
+Deployed Metrics API Server.
+Deployed Prometheus Server nginx-mesh/prometheus.
+Deployed Grafana nginx-mesh/grafana.
+Deployed tracing server nginx-mesh/jaeger.
+All resources created. Testing the connection to the Service Mesh API Server...
+Connected to the NGINX Service Mesh API successfully.
+Verifying that all images were pulled...done.
+NGINX Service Mesh is running.
+namespace/nginx-ingress created
+serviceaccount/nginx-ingress created
+clusterrole.rbac.authorization.k8s.io/nginx-ingress created
+clusterrolebinding.rbac.authorization.k8s.io/nginx-ingress created
+clusterrole.rbac.authorization.k8s.io/nginx-ingress-app-protect created
+clusterrolebinding.rbac.authorization.k8s.io/nginx-ingress-app-protect created
+secret/default-server-secret created
+configmap/nginx-config created
+customresourcedefinition.apiextensions.k8s.io/virtualservers.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/virtualserverroutes.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/transportservers.k8s.nginx.org created
+customresourcedefinition.apiextensions.k8s.io/policies.k8s.nginx.org created
+deployment.apps/nginx-ingress created
+ingress.networking.k8s.io/grafana created
+ingress.networking.k8s.io/jaeger created
+ingress.networking.k8s.io/prometheus created
+namespace/nsm-demo9 created
+service/target-svc created
+deployment.apps/target-v1-0 created
+configmap/target-v1-0 created
+service/target-v1-0 created
+configmap/gw-nginx-conf created
+deployment.apps/gateway created
+service/gateway-svc created
+ingress.networking.k8s.io/gateway created
+deployment.apps/target-v2-0 created
+configmap/target-v2-0 created
+service/target-v2-0 created
+trafficsplit.split.smi-spec.io/target-ts created
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v1.0
+target v2.0
+target v1.0
+target v1.0
+target v1.0
+trafficsplit.split.smi-spec.io "target-ts" deleted
+deployment.apps "target-v2-0" deleted
+configmap "target-v2-0" deleted
+service "target-v2-0" deleted
+service "target-svc" deleted
+deployment.apps "target-v1-0" deleted
+configmap "target-v1-0" deleted
+service "target-v1-0" deleted
+configmap "gw-nginx-conf" deleted
+deployment.apps "gateway" deleted
+service "gateway-svc" deleted
+ingress.networking.k8s.io "gateway" deleted
+namespace "nsm-demo9" deleted
+ingress.networking.k8s.io "grafana" deleted
+ingress.networking.k8s.io "jaeger" deleted
+ingress.networking.k8s.io "prometheus" deleted
+Removing NGINX Service Mesh from namespace "nginx-mesh"...
+NGINX Service Mesh removed successfully.
+NOTE: The following resources still contain the sidecar proxy:
+
+  NAMESPACE      RESOURCE
+  nginx-ingress  deployment/nginx-ingress
+
+If your resource supports rolling updates, re-roll using 'kubectl rollout restart <resource>/<name>'. Otherwise, the Pods need to be deleted and re-created.
+deployment.apps "nginx-ingress" deleted
+namespace "nginx-ingress" deleted
+serviceaccount "nginx-ingress" deleted
+clusterrole.rbac.authorization.k8s.io "nginx-ingress" deleted
+clusterrolebinding.rbac.authorization.k8s.io "nginx-ingress" deleted
+clusterrole.rbac.authorization.k8s.io "nginx-ingress-app-protect" deleted
+clusterrolebinding.rbac.authorization.k8s.io "nginx-ingress-app-protect" deleted
+customresourcedefinition.apiextensions.k8s.io "virtualservers.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "virtualserverroutes.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "transportservers.k8s.nginx.org" deleted
+customresourcedefinition.apiextensions.k8s.io "policies.k8s.nginx.org" deleted

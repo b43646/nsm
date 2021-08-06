@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: prometheus
+  namespace: nginx-mesh
+  annotations:
+    nsm.nginx.com/internal-route: "true"
+spec:
+#  ingressClassName: nginx # use only with k8s version >= 1.18.0
+  tls:
+  rules:
+  - host: prometheus.apps.loren.test
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: prometheus
+          servicePort: 9090
+
