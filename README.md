@@ -7,9 +7,11 @@ nsm压力测试介绍
 ### 环境一
 
 K8S 版本: v1.16.3
+
 CNI插件：calico
 
 压测脚本 stress_test.sh
+
 压测日志 stress_test.log
 
 默认流量控制策略v2.0权重10，v1.0权重90.
@@ -24,9 +26,11 @@ CNI插件：calico
 ### 环境二
 
 K8S 版本: v1.16.3
+
 CNI插件：cilium v1.10.3
 
 压测脚本 stress_test2.sh
+
 压测日志 stress_test2.log
 
 默认流量控制策略v2.0权重10，v1.0权重90.
